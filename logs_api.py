@@ -5,7 +5,6 @@ import requests
 
 import json
 import utils
-import clickhouse
 import datetime
 import logging
 
@@ -17,7 +16,7 @@ else:
 
 logger = logging.getLogger('logs_api')
 
-HOST = 'https://api-metrika.yandex.ru'
+HOST = 'https://api-metrika.yandex.net'
 
 
 def get_estimation(user_request):
@@ -37,7 +36,6 @@ def get_estimation(user_request):
         .format(host=HOST, counter_id=user_request.counter_id) + url_params
 
     r = requests.get(url, headers=headers)
-
     if r.status_code == 200:
         return json.loads(r.text)['log_request_evaluation']
     else:
@@ -118,7 +116,6 @@ def create_task(api_request):
     else:
         raise ValueError(r.text)
 
-
 def update_status(api_request):
     '''Returns current tasks\'s status'''
     url = '{host}/management/v1/counter/{counter_id}/logrequest/{request_id}' \
@@ -163,7 +160,6 @@ def save_data(api_request, part):
     splitted_text = r.text.split('\n')
     logger.info('### DATA SAMPLE')
     logger.info('\n'.join(splitted_text[:5]))
-
     headers_num = len(splitted_text[0].split('\t'))
     splitted_text_filtered = list(filter(lambda x: len(x.split('\t')) == headers_num, r.text.split('\n')))
     num_filtered = len(splitted_text) - len(splitted_text_filtered)
@@ -173,10 +169,8 @@ def save_data(api_request, part):
     if len(splitted_text_filtered) > 1:
         output_data = '\n'.join(splitted_text_filtered) #.encode('utf-8')
         output_data = output_data.replace(r"\'", "'") # to correct escapes in params
-
-        clickhouse.save_data(api_request.user_request.source,
-                             api_request.user_request.fields,
-                             output_data)
+        with open('data.txt', 'w') as outfile:
+            outfile.write(output_data)
     else:
         logger.warning('### No data to upload')
 

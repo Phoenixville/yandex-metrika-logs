@@ -1,7 +1,6 @@
 from collections import namedtuple
 import logs_api
 import time
-import clickhouse
 import utils
 import sys
 import datetime
@@ -107,8 +106,8 @@ def integrate_with_logs_api(config, user_request):
             if i == config['retries'] - 1:
                 raise e
 
+
 if __name__ == '__main__':
-    print('##### python', utils.get_python_version())
     start_time = time.time()
 
     config = utils.get_config()
@@ -116,14 +115,12 @@ if __name__ == '__main__':
 
     user_request = build_user_request(config)
 
-
     # If data for specified period is already in database, script is skipped
-    if clickhouse.is_data_present(user_request.start_date_str,
-                                  user_request.end_date_str,
-                                  user_request.source):
-        logging.critical('Data for selected dates is already in database')
-        exit(0)
-
+    # if clickhouse.is_data_present(user_request.start_date_str,
+    #                               user_request.end_date_str,
+    #                               user_request.source):
+    #     logging.critical('Data for selected dates is already in database')
+    #     exit(0)
 
     integrate_with_logs_api(config, user_request)
 
@@ -132,4 +129,3 @@ if __name__ == '__main__':
         (end_time - start_time) / 60,
         (end_time - start_time) % 60
     ))
-
