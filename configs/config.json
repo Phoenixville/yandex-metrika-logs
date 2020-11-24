@@ -1,15 +1,31 @@
 {
-	"token" : "AgAEA7qiJH_pAAaEprfiN1LHsUH9ufhtAH6hxRw",
+	"token" : "AgAAAAAP1bikAAa5IRWOT58p_k7opIcVfdE8Qvs",
 	"counter_id": "51140138",
 	"disable_ssl_verification_for_clickhouse": 0,
 	"visits_fields": [
-	    "ym:s:counterID",
 	    "ym:s:dateTime",
-	    "ym:s:date",
-	    "ym:s:clientID"
+	    "ym:s:clientID",
+		"ym:s:startURL",
+		"ym:s:goalsDateTime",
+		"ym:s:isNewUser",
+		"ym:s:regionCity",
+		"ym:s:lastTrafficSource",
+		"ym:s:clientTimeZone",
+		"ym:s:visitDuration",
+		"ym:s:goalsID",
+		"ym:s:referer",
+		"ym:s:UTMCampaign",
+		"ym:s:deviceCategory",
+		"ym:s:mobilePhone",
+		"ym:s:mobilePhoneModel",
+		"ym:s:operatingSystem",
+		"ym:s:browser",
+		"ym:s:lastAdvEngine",
+		"ym:s:lastReferalSource",
+		"ym:s:lastSearchEngine",
+		"ym:s:lastSocialNetwork"
 	],
 	"hits_fields": [
-	    "ym:pv:counterID",
 	    "ym:pv:dateTime",
 	    "ym:pv:date",
 	    "ym:pv:clientID"

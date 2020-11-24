@@ -1,7 +1,6 @@
 from collections import namedtuple
-import logs_api
+import logs_api, utils
 import time
-import utils
 import sys
 import datetime
 import logging

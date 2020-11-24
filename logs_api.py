@@ -111,7 +111,6 @@ def create_task(api_request):
         response = json.loads(r.text)['log_request']
         api_request.status = response['status']
         api_request.request_id = response['request_id']
-        # api_request.size = response['size']
         return response
     else:
         raise ValueError(r.text)
@@ -139,7 +138,6 @@ def update_status(api_request):
 
 
 def save_data(api_request, part):
-    '''Loads data chunk from Logs API and saves to ClickHouse'''
     url = '{host}/management/v1/counter/{counter_id}/logrequest/{request_id}/part/{part}/download' \
         .format(
             host=HOST,
@@ -169,7 +167,7 @@ def save_data(api_request, part):
     if len(splitted_text_filtered) > 1:
         output_data = '\n'.join(splitted_text_filtered) #.encode('utf-8')
         output_data = output_data.replace(r"\'", "'") # to correct escapes in params
-        with open('data.txt', 'w') as outfile:
+        with open('/home/phoenixville/Загрузки/data.txt', 'w') as outfile:
             outfile.write(output_data)
     else:
         logger.warning('### No data to upload')
